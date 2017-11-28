@@ -1,0 +1,86 @@
+.586
+.MODEL FLAT
+INCLUDE io.h
+.STACK 4069
+.DATA
+a DWORD ?
+b DWORD ?
+q DWORD ?
+d DWORD ?
+e DWORD ?
+f DWORD ?
+promp1 BYTE "enter pennies",0
+promp2 BYTE "enter nickels",0
+promp3 BYTE "enter dimes",0
+promp4 BYTE "enter quarters",0
+promp5 BYTE "enter fifty-cents",0
+promp6 BYTE "enter dollar",0
+result1 BYTE " num of coins is",0
+result2 BYTE "total value in dollars",0
+string BYTE 40 dup(?)
+.CODE
+MainProc PROC
+input promp1,string,40
+atod string
+mov a,eax
+
+input promp2,string,40
+atod string
+mov b,eax
+
+input promp3,string,40
+atod string
+mov q,eax
+
+input promp4,string,40
+atod string
+mov d,eax
+
+input promp5,string,40
+atod string
+mov e,eax
+
+input promp6,string,40
+atod string
+mov f,eax			;eax=f
+
+add eax,a
+add eax,b
+add eax,q
+add eax,d
+add eax,e
+
+dtoa string,eax
+output result1,string,40
+
+mov ebx,b
+imul ebx,5		;ebx=5b
+
+mov ecx,q
+imul ecx,10		;ecx=10c
+
+mov edx,q
+imul edx,25		;edx=25d
+
+mov eax,e		
+imul eax,50		;eax=50e
+
+add eax,ebx
+add eax,ecx
+add eax,edx
+
+add eax,a		;eax=a+5b+10c+25d+50e
+mov ebx,100
+cwd
+div ebx
+mov edx,0
+add eax,f
+dtoa  string,eax
+output result2,string,40
+
+
+
+mov eax,0
+ret
+MainProc ENDP
+END

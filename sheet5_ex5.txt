@@ -1,0 +1,44 @@
+.586
+.MODEL FLAT
+INCLUDE io.h
+.STACK 4069
+.DATA
+a DWORD ?
+b DWORD ?
+q DWORD ?
+d DWORD ?
+promp1 BYTE "enter grade",0
+result1 BYTE " result is",0
+string BYTE 40 dup(?)
+.CODE
+MainProc PROC
+input promp1,string,40
+atod string
+mov a,eax
+
+input promp1,string,40
+atod string
+mov b,eax
+
+input promp1,string,40
+atod string
+mov q,eax
+
+input promp1,string,40
+atod string
+mov d,eax
+
+add eax,b
+add eax,q
+add eax,a
+
+mov ecx,4
+mov edx,0
+cwd
+idiv ecx
+dtoa string,eax
+output result1,string,40
+mov eax,0
+ret
+MainProc ENDP
+END

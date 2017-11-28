@@ -1,0 +1,45 @@
+.586
+.MODEL FLAT
+INCLUDE io.h
+.STACK 4069
+.DATA
+x DWORD ?
+y DWORD ?
+z DWORD ?
+promp1 BYTE "enter number",0
+result1 BYTE " result is",0
+string BYTE 40 dup(?)
+.CODE
+MainProc PROC
+input promp1,string,40
+atod string
+mov x,eax
+
+input promp1,string,40
+atod string
+mov y,eax
+
+input promp1,string,40
+atod string
+mov z,eax
+
+mov eax,x
+add eax,y   ;eax=x+y    
+
+mov x,eax	;x=x+y
+
+mov eax,z
+imul eax,-2 
+add eax,1   ;eax=-2z+1
+
+add x,eax   ;x=x+y-2z+1
+mov eax,x
+imul eax,-1
+dtoa x,eax
+
+output result1,x
+
+mov eax,0
+ret
+MainProc ENDP
+END

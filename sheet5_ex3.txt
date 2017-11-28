@@ -1,0 +1,36 @@
+.586
+.MODEL FLAT
+INCLUDE io.h
+.STACK 4069
+.DATA
+x DWORD ?
+y DWORD ?
+promp1 BYTE "enter lenght",0
+promp2 BYTE "enter width",0
+result1 BYTE " result is",0
+string BYTE 40 dup(?)
+.CODE
+MainProc PROC
+input promp1,string,40
+atod string
+mov x,eax
+
+input promp2,string,40
+atod string
+mov y,eax
+
+imul eax,2
+mov y,eax		;y=2y
+
+mov eax,x
+imul eax,2		;eax=2x
+
+add eax,y		;eax=2x+2y
+
+dtoa string,eax
+output result1,string,40 
+
+mov eax,0
+ret
+MainProc ENDP
+END

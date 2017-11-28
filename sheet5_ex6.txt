@@ -1,0 +1,113 @@
+.586
+.MODEL FLAT
+INCLUDE io.h
+.STACK 4069
+.DATA
+g1 DWORD ?
+g2 DWORD ?
+g3 DWORD ?
+g4 DWORD ?
+
+w1 DWORD ?
+w2 DWORD ?
+w3 DWORD ?
+w4 DWORD ?
+
+WS DWORD ?
+SOW DWORD ?
+final DWORD ?
+promp1 BYTE "enter grade",0
+promp2 BYTE "enter weight",0
+result1 BYTE "weighted sum",0
+result2 BYTE "sum of weight",0
+result3 BYTE "final",0
+string BYTE 40 dup(?)
+.CODE
+MainProc PROC
+input promp1,string,40
+atod string
+mov g1,eax
+
+input promp2,string,40
+atod string
+mov w1,eax
+
+input promp1,string,40
+atod string
+mov g2,eax
+
+input promp2,string,40
+atod string
+mov w2,eax
+
+input promp1,string,40
+atod string
+mov g3,eax
+
+input promp2,string,40
+atod string
+mov w3,eax
+
+input promp1,string,40
+atod string
+mov g4,eax
+
+input promp2,string,40
+atod string
+mov w4,eax
+
+
+
+mov eax,g1
+imul eax,w1
+
+mov ebx,eax		;ebx=g1*w1
+
+mov eax,g2
+imul eax,w2
+
+add ebx,eax		;ebx=g1*w1+g2*w2
+
+mov eax,g3
+imul eax,w3
+add ebx,eax		;ebx=g1*w1+g2*w2+g3*w3
+
+mov eax,g4
+imul eax,w4		
+add ebx,eax		;ebx=g1*w1+g2*w2+g3*w3+g4*w4
+
+
+mov	WS,ebx
+;;;;;;;;;;;;;;;
+mov eax,w1
+add eax,w2
+add eax,w3
+add eax,w4
+
+mov SOW,eax
+;;;;;;;;;;;;;;;
+mov EAX,WS
+mov EBX,SOW
+mov edx,0
+cwd
+div EBX
+
+mov final,eax
+;;;;;;;;;;;;;;;;;;
+
+mov eax,WS
+dtoa string,eax
+output result1 ,string,40
+
+mov eax,SOW
+dtoa string,eax
+output result2 ,string,40
+
+mov eax,final
+dtoa string,eax
+output result3, string,40
+
+mov eax,0
+ret
+MainProc ENDP
+END
